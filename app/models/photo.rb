@@ -14,10 +14,10 @@
 
 class Photo < ApplicationRecord
   validates(:poster, { :presence => true })
-  belongs_to(:poster,class_name:"User",foreign_key:"owner_id",required:true)
+  belongs_to(:poster,class_name:"User",foreign_key:"owner_id")
   has_many(:likes)
   has_many(:comments)
-
+  has_many(:fans,through: :likes,source: :fan)
   # Association accessor methods to define:
   
    

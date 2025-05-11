@@ -15,23 +15,19 @@ class User < ApplicationRecord
   validates(:username, {
     :presence => true,
     :uniqueness => { :case_sensitive => false },
+
+
+
   })
 
+    has_many(:comments,foreign_key:"author_id")
+    has_many(:likes,foreign_key:"fan_id")
+    has_many(:own_photos,class_name:"photos",foreign_key:"owner_id")
+    has_many(:sent_follow_requests,class_name:"follow_requests",foreign_key:"sender_id")
+    has_many(:received_follow_requests,class_name:"follow_requests",foreign_key:"recipient_id")
   # Association accessor methods to define:
   
-  ## Direct associations
-
-  # User#comments: returns rows from the comments table associated to this user by the author_id column
-
-  # User#own_photos: returns rows from the photos table  associated to this user by the owner_id column
-
-  # User#likes: returns rows from the likes table associated to this user by the fan_id column
-
-  # User#sent_follow_requests: returns rows from the follow requests table associated to this user by the sender_id column
-
-  # User#received_follow_requests: returns rows from the follow requests table associated to this user by the recipient_id column
-
-
+   
   ### Scoped direct associations
 
   # User#accepted_sent_follow_requests: returns rows from the follow requests table associated to this user by the sender_id column, where status is 'accepted'
